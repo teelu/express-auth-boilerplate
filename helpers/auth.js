@@ -37,6 +37,19 @@ module.exports = {
       })
     }))
   },
+  /**
+   * generateJwt(email, expiresIn)
+   * 
+   * @param - email - String
+   * @param - expiresIn(OPTIONAL) - String
+   * 
+   * Generates a json web token given the email of the user.  If given a specific time period for expiriy it will use that.
+   * For more documentation regarding time period please check: https://github.com/auth0/node-jsonwebtoken
+   * 
+   * @resolve - returns json web token for the user authentication
+   * @reject - Any errors with finding the user or generating the json web token
+   * 
+   */
   generateJWT: (email, expiresIn = '1h') => {
     return new Promise(((resolve, reject) => {
       models.User.unscoped().findOne({where: {email: email}}).then(user => {
@@ -62,6 +75,18 @@ module.exports = {
       })
     }))
   },
+
+  /**
+   * verifyToken(token)
+   * 
+   * @params - token - string
+   * 
+   * takes a token and tries to validate the data and checks for expiry.
+   * 
+   * @resolve - Returns the user data back for next step to use
+   * @reject - Invalid token, invalid expiry date, cannot find user
+   * 
+   */
   verifyToken: (token) => {
     return new Promise(((resolve, reject) => {
       jwt.verify(token, process.env.JWT_HASH, function(err, decoded) {
