@@ -37,7 +37,7 @@ module.exports = {
       })
     }))
   },
-  generateJWT: (email, expiresIn = '1 day') => {
+  generateJWT: (email, expiresIn = '1h') => {
     return new Promise(((resolve, reject) => {
       models.User.unscoped().findOne({where: {email: email}}).then(user => {
         jwt.sign({
@@ -63,7 +63,6 @@ module.exports = {
     }))
   },
   verifyToken: (token) => {
-    console.log(token);
     return new Promise(((resolve, reject) => {
       jwt.verify(token, process.env.JWT_HASH, function(err, decoded) {
         if (err) {

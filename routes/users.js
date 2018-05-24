@@ -47,8 +47,8 @@ router.get('/:id', function(req, res, next) {
     res.json({
       success: false,
       data: {
-        message: 'DB Error',
-        reason: err
+        message: err,
+        reason: 'DB Error'
       }
     }, 400);
   });
@@ -66,8 +66,8 @@ router.post('/', function(req, res, next) {
     res.json({
       success: false,
       data: {
-        message: "User could not be created",
-        reason: err["errors"].map(e => e['message'].replace('User.', ''))
+        message: err["errors"].map(e => e['message'].replace('User.', '')),
+        reason: "User could not be created"
         // err
       }
     }, 400);
@@ -80,7 +80,7 @@ router.delete('/:id', function(req, res, next) {
       return res.json({
         success: false,
         data: {
-          message: "No user found with this id"
+          reason: "No user found with this id"
         }
       }, 404);
     }

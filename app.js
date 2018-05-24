@@ -3,6 +3,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var pry = require('pryjs');
+
 var app = express();
 
 var auth = require('./helpers/auth');
@@ -37,8 +39,8 @@ app.use(function(req, res, next) {
     res.status(401).json({
       success: false,
       data: {
-        message: "Invalid information, please login again",
-        reason: "JWT ERROR"
+        message: err.message,
+        reason: 'JWT ERROR'
       }
     })
   })
