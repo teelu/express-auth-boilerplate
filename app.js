@@ -3,8 +3,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var pry = require('pryjs');
-
 var app = express();
 
 var auth = require('./helpers/auth');
