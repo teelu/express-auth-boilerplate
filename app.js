@@ -28,7 +28,7 @@ app.use(function(req, res, next) {
   if (unprotected.indexOf(req.originalUrl) !== -1)  return next()
 
   //Verify using authorization header
-  var token = req.get('Authorization');
+  var token = req.get('Authorization').replace('Bearer ', '');
   auth.verifyToken(token).then(success => {
     //expose req.user to route
     req.foundUser = success;
